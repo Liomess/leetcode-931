@@ -1,0 +1,33 @@
+import math
+class Solution:
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        def f(self,i,j,n,matrix,dp):
+            if i==n-1:
+                dp[i][j]=matrix[i][j]
+                return dp[i][j]
+            if dp[i][j]!=-1:
+                return dp[i][j]
+            one,two,three=10**5,10**5,10**5
+            if i+1<n and j-1>=0:
+                one=matrix[i][j]+f(self,i+1,j-1,n,matrix,dp)
+            if i+1<n:
+                two=matrix[i][j]+f(self,i+1,j,n,matrix,dp)
+            if i+1<n and j+1<n:
+                three=matrix[i][j]+f(self,i+1,j+1,n,matrix,dp)
+            dp[i][j]=min(one,min(two,three))
+            return dp[i][j]
+
+            
+
+
+
+
+        n=len(matrix)
+        infy=math.inf
+        i=0
+        dp=[[-1 for i in range(n+1)]for j in range(n+1)]
+        for j in range(n):
+            val=f(self,i,j,n,matrix,dp)
+            if val<infy:
+                infy=val
+        return infy
